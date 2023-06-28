@@ -1,0 +1,42 @@
+//sorting the array and finding LCS
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        int maxLen = 1, len = 1;
+        sort(nums.begin(), nums.end());
+
+        if(nums.empty())    return 0;
+
+        for(int i=1; i<nums.size(); i++){
+            if(nums[i]-nums[i-1]==1){
+                len++;
+            }
+            else if(nums[i]!=nums[i-1]){
+                maxLen = max(maxLen, len);
+                len = 1;
+            }     
+        }
+        maxLen = max(maxLen, len);
+        return maxLen;
+    }   
+};
+
+//using a set and checking if prvs element exists
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set<int>s(nums.begin(), nums.end());
+        int longest = 0;
+        for(auto &n: s){
+            //if this is the start of the sequence
+            if(!s.count(n - 1)){
+                int length = 1; 
+                while(s.count(n + length))
+                    ++length;
+                longest = max(longest, length);
+            } 
+
+        }
+        return longest;
+    }
+};
