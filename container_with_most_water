@@ -1,0 +1,22 @@
+//brute force approach: compare each pair of poles
+
+//two pointer approach
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int maxAmount = 0, amount = 0;
+        int i = 0, j = height.size()-1;
+
+        while(i<j){
+            amount = (j-i) * min(height[i],height[j]);
+            maxAmount = max(maxAmount, amount);
+
+            if(height[i]<=height[j])
+                i++;
+            else
+                j--;
+        }
+
+        return maxAmount;
+    }
+};
