@@ -15,3 +15,6 @@ public:
         return false;
     }
 };
+
+//alternate 1: brute force to compare each
+//alternate 2: sorting numbers to get duplicates at adjacent
