@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        vector<int> result;
+        unordered_map<int,int> numCount;
+
+        //storing numbers with their frequency
+        for(int i =0; i<nums.size(); i++){
+            numCount[nums[i]]++;    
+        }
+
+        //minHeap that stores k frequent elements only
+        priority_queue<pair<int, int>, vector<pair<int,int>>,greater<pair<int,int>>> minHeap;
+        for(auto it = numCount.begin(); it!=numCount.end();it++){
+            minHeap.push({it->second, it->first});
+            if(minHeap.size()>k){
+                minHeap.pop();
+            }
+        }
+
+        //storing k frequent elements in result
+        while(!minHeap.empty()){
+            result.push_back(minHeap.top().second);
+            minHeap.pop();
+        }
+
+        return result;    
+    }
+};
