@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        
+        unordered_set<char> letters;
+        int maxLength = 0;
+        int l = 0, r = 0;
+        
+        while(r < s.length()){
+            if(letters.find(s[r])==letters.end()){
+                letters.insert(s[r]);
+                maxLength = max(maxLength, r-l+1);
+                r++;
+            }else{
+                letters.erase(s[l]);
+                l++;
+            }
+        }   
+        return maxLength;
+    }
+};
+
+// Above solution: no inner loop, but the "j" variable is not increased at each iteration
+// Below: inner loop increasing "i", outer loop increasing "j".
+class Solution {
+public:
+    int lengthOfLongestSubstring(string& s) {
+        unordered_set<char> chars;
+        int maxSize = 0;
+        int i = 0, j = 0;
+        while (j < s.size()){
+            while (chars.find(s[j]) != chars.end()){
+                chars.erase(s[i]);
+                ++i;
+            }
+            maxSize = max(maxSize, j - i + 1);
+            chars.insert(s[j]);
+            ++j;
+        }
+        return maxSize;
+    }
+};
